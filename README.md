@@ -7,6 +7,13 @@ Preprint v1.0 · 1 November 2026
 
 This source-dependent corollary relies on OpenAI (2026), *Additive hardness and unbounded configuration gaps in bin packing*. It is not an independent proof of OpenAI's theorem. It makes no strengthened NP-hardness claim and no claim of established priority.
 
+## Publication
+
+- [GitHub Release v1.0](https://github.com/yonezaemon1-hub/no47-four-item-configuration-gaps/releases/tag/v1.0)
+- [Zenodo Preprint 1.0](https://zenodo.org/records/23851724)
+- DOI: [10.5281/zenodo.23851724](https://doi.org/10.5281/zenodo.23851724)
+- Published 2026-11-01. The public PDF and ZIP were downloaded from both GitHub and Zenodo after publication; all four SHA256 values match the canonical source files.
+
 ## Result and scope
 
 A paired-auxiliary reduction joins two source roles into one physical item, giving rational bin-packing instances with every item size strictly greater than 1/5 and thus at most four items per unit bin. The source fractional witness is preserved with value B. Any packing of the transformed instance into B+g bins decodes into a packing of the source instance into at most B+357g bins. Conditional on the imported source theorem and its fractional templates, the unrestricted configuration LP therefore has unbounded additive integrality gaps in this class.
