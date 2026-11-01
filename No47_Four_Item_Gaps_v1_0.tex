@@ -1,0 +1,147 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array,microtype,hyperref,xcolor}
+\hypersetup{colorlinks=true,linkcolor=blue!45!black,urlcolor=blue!45!black,citecolor=blue!45!black,pdftitle={Four-Item Unbounded Configuration Gaps via a Paired-Auxiliary Reduction},pdfauthor={Ryutaro Yonezu}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\OPT}{\operatorname{OPT}}
+\newcommand{\LP}{\operatorname{LP}}
+\newcommand{\Fp}{F_{\mathrm T}}
+\newcommand{\Fm}{F_{\mathrm M}}
+\newcommand{\Fg}{F_{\mathrm G}}
+\title{\textbf{Four-Item Unbounded Configuration Gaps\\via a Paired-Auxiliary Reduction}}
+\author{Ryutaro Yonezu\\\small Independent Researcher}
+\date{Preprint v1.0 --- 1 November 2026}
+\begin{document}
+\maketitle
+\begin{center}
+\small\textit{Source-dependent corollary of OpenAI (2026); not independently human peer-reviewed.}\\
+\textit{Novelty assessment: inconclusive. No claim of strengthened NP-hardness. All rights reserved.}
+\end{center}
+\begin{abstract}
+We give a paired-auxiliary reduction for the structured five-role instances underlying OpenAI's 2026 proof of unbounded additive gaps for bin-packing configuration linear programs. Two auxiliary roles are joined into a single physical item, yielding instances whose item sizes are strictly greater than one fifth. An explicit fractional certificate of value $B$ survives this transformation, while any packing of the transformed instance in $B+g$ bins decodes to a packing of the source instance in at most $B+357g$ bins. Consequently, conditional on the cited source theorem and its fractional templates, the configuration-LP additive gap is unbounded even when each bin accommodates at most four items. The argument does not independently prove the imported source theorem or establish a four-item NP-hardness result.
+\end{abstract}
+
+\section{Setting and imported source}
+For a finite multiset $I$ of positive rational item sizes, a unit-capacity bin accepts a configuration of total size at most one. Write $\OPT(I)$ for the minimum integral number of bins and $\LP(I)$ for the unrestricted Gilmore--Gomory configuration-LP optimum. We also distinguish the individual-copy configuration LP from the numerical-size-type formulation.
+
+We use the special $K_4$, $k=2$ instances from OpenAI's unbounded-configuration-gap theorem~\cite{OpenAI2026}. For every nonnegative integer $h$, that construction supplies a rational instance $I_5$, with exactly $B$ physical copies in each of five roles $X,A,U,D,F$, having
+\begin{equation}\label{eq:source}
+   \LP_{\mathrm{ind}}(I_5)=\LP_{\mathrm{type}}(I_5)=B,
+   \qquad \OPT(I_5)>B+h.
+\end{equation}
+The scalar encoding lemma of the source establishes $a_i\in(1/6,7/30)$ for every original size. We import the instance inventory and the selected/unselected local fractional templates from the source's \emph{Lemma (scalar encoding)}, \emph{Proposition (fractional)}, \emph{Table (local-state demands)} and \emph{Table (five-role patterns)}. We do not re-prove its competing-tree construction or soundness argument.
+
+Let $t_{v,+}$ and $t_{v,-}$ denote the source's tree-row counts at each of the four vertices, $J_v=dR\deg(v)$ the job-row count, and define
+\[
+T_+=\sum_v t_{v,+},\quad T_-=\sum_v t_{v,-},\quad J=\sum_v J_v,
+\qquad B=T_++T_-+2J.
+\]
+The source provides flag pools $F_{\rm T},F_{\rm M},F_{\rm G}$ of sizes $T_++T_-$, $J$, $J$, respectively. Global auxiliary $U$ copies are partitioned into $U_+^1,U_-^1,U_+^0,U_-^0$ (superscript denotes length) and edge-indexed permit/nonpermit pools $W_{e,p},W_{e,n}$. The inventories are, respectively,
+\[
+2d,\quad 2d,\quad T_++J-2d,\quad T_--2d,
+\quad\text{and }dR\text{ for each of the 12 edge pools}.
+\]
+Within each such $U$ pool and each flag pool, the source items have identical numerical sizes. The labeled roles $X,A,D$ need not have identical sizes.
+
+\section{Preserving the fractional witness by fixed auxiliary pairs}
+\begin{lemma}[Paired-template fractional certificate]\label{lem:pair}
+There exists a partition of the physical $U$ and $F$ copies into $B$ fixed pairs such that the source selected/unselected fractional templates can be realized using those pairs, without changing feasibility, the coverage of any physical copy, or the LP objective $B$.
+\end{lemma}
+\begin{proof}
+Use the following groups of pairs, where the final two rows each represent one group for every edge of $K_4$ (six edges):
+\begin{center}
+\begin{tabular}{@{}lrr@{}}\toprule
+Fixed auxiliary pair group & Number of pairs $N$ & Local-state occurrences \\\midrule
+$(U_+^1,F_{\rm T})$ & $2d$ & $4d$ \\
+$(U_-^1,F_{\rm T})$ & $2d$ & $4d$ \\
+$(U_+^0,F_{\rm T})$ & $T_+-2d$ & $2(T_+-2d)$ \\
+$(U_-^0,F_{\rm T})$ & $T_--2d$ & $2(T_--2d)$ \\
+$(U_+^0,F_{\rm M})$ & $J$ & $2J$ \\
+$(W_{e,p},F_{\rm G})$, each edge $e$ & $dR$ & $2dR$ \\
+$(W_{e,n},F_{\rm G})$, each edge $e$ & $dR$ & $2dR$ \\\bottomrule
+\end{tabular}
+\end{center}
+There are $5+12=17$ separate groups. They exhaust every $U$ and $F$ copy by the imported inventory, and their total number of pairs is $B$.
+
+For completeness, the occurrence counts follow from the source's local-state demand table: at each vertex the selected state consumes $d$ copies of $U_+^1$, $t_{v,+}-d$ copies of $U_+^0$ with $F_{\rm T}$, $t_{v,-}$ copies of $U_-^0$ with $F_{\rm T}$, $J_v$ copies of $U_+^0$ with $F_{\rm M}$, and $dR$ nonpermits from each incident edge with $F_{\rm G}$. The unselected state instead uses $d$ copies of $U_-^1$, $t_{v,+}$ copies of $U_+^0$ with $F_{\rm T}$, $t_{v,-}-d$ copies of $U_-^0$ with $F_{\rm T}$, the same $J_v$ copies with $F_{\rm M}$, and the permits. The source's pattern table identifies the accompanying flag class. Summing over the four vertices gives precisely $2N$ state occurrences in each group.
+
+Each occurrence has coefficient $1/2$. For a group with $N>0$ identical-size fixed pairs, replace its occurrence by $N$ configurations, one per physical pair, each of coefficient $1/(2N)$. Every pair then receives total coverage $2N/(2N)=1$. The coefficient sum of each original occurrence remains $N/(2N)=1/2$; hence all labeled $X,A,D$ copies preserve their original total coverage 1, since each occurs once in each of the two local states. All new columns are feasible: the $U$ size and the $F$ size are constant within each group. Zero-sized groups have no occurrences and are omitted. The fractional objective remains $B$.
+\end{proof}
+
+\section{Four-role scalar encoding}
+After fixing the pairs, replace each $(u,f)$ by one composite physical item $UF$. Keep $X,A,D$ individually. The new instance $I_4$ has $B$ copies in each of its four roles, hence $4B$ items.
+
+Set
+\[
+\varepsilon=10^{-3},\quad \lambda=10^{-5},\qquad
+(p_X,p_A,p_D,p_{UF})=(1,2,4,-7).
+\]
+For an original item $i$ of role $X,A,D$, and for a fixed $(u,f)$ pair, define
+\begin{align}
+ s'_i&=\tfrac14+\varepsilon p_i+\lambda(a_i-\tfrac15),\\
+ s'_{UF(u,f)}&=\tfrac14-7\varepsilon+\lambda(a_u+a_f-\tfrac25).
+\end{align}
+
+\begin{lemma}[Feasible full bins and the decoding identity]\label{lem:scalar}
+Every new size lies in $(1/5,1)$. A feasible four-item bin with total role score zero must have exactly one item of each role. A four-item bin of positive role score is infeasible. For every normal full bin $Q=\{x,a,d,UF(u,f)\}$,
+\begin{equation}\label{eq:identity}
+ \sum_{i\in Q}s'_i=1+\lambda(a_x+a_a+a_d+a_u+a_f-1).
+\end{equation}
+Thus $Q$ is feasible if and only if its five corresponding source copies form a feasible source bin.
+\end{lemma}
+\begin{proof}
+The original bound $a_i\in(1/6,7/30)$ implies $a_i-1/5\in(-1/30,1/30)$ and $a_u+a_f-2/5\in(-1/15,1/15)$. The stated coefficients force $1/5<s'_i<1$ for all roles. Hence any feasible bin has at most four items.
+
+For any four-item multiset, its role score $P$ is an integer. The total perturbation at the $\lambda$ scale has magnitude less than $4\lambda/15<\varepsilon$, so $P\ge1$ forces total size above 1. Enumerating all $\binom{4+4-1}{4}=35$ role multisets shows the unique score-zero multiset is $\{X,A,D,UF\}$ (the other 34 scores are nonzero). Substituting the definitions yields~\eqref{eq:identity} exactly.
+\end{proof}
+
+\section{Decoding arbitrary integral packings}
+\begin{lemma}[Uniform decoding bound]\label{lem:decode}
+If $I_4$ can be packed in $B+g$ bins, with $g\in\mathbb Z_{\ge0}$, then
+\begin{equation}\label{eq:decode}
+\OPT(I_5)\le B+357g.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $L$ be the number of bins having at most three items and $H$ the number of nonnormal four-item bins. Every normal four-item bin has score zero; every feasible nonnormal four-item bin has score at most $-1$ by Lemma~\ref{lem:scalar}. A bin with at most three items has score at most $3\cdot4=12$. The score sum over all items is $B(1+2+4-7)=0$. Therefore
+\[
+0\le -H+12L,\qquad H\le12L.
+\]
+There are $4B$ items in $B+g$ bins with four slots each; the number of unused slots is $4g$. Thus $L\le4g$ and $H\le48g$.
+
+Decode normal full bins back into their five source items, preserving feasibility by~\eqref{eq:identity}. Replace every nonnormal full bin by at most eight singleton source bins, adding at most seven to the original bin count; replace every bin with at most three items by at most six source singletons, adding at most five. Every original source item is smaller than 1, so these singletons are feasible. It follows that
+\[
+\OPT(I_5)\le (B+g)+7H+5L
+\le B+g+7(48g)+5(4g)=B+357g.
+\]
+No assumptions about the integral packing's chosen patterns are needed.
+\end{proof}
+
+\section{Four-item unbounded gap}
+\begin{theorem}[Four-item configuration-LP additive gaps]\label{thm:gap}
+Assuming the source theorem and source fractional-template construction cited in Section 1, for every integer $c\ge0$ there exists a finite rational one-dimensional bin-packing instance $I_4$ and an integer $B$ such that every item size exceeds $1/5$, and
+\[
+\LP_{\mathrm{ind}}(I_4)=\LP_{\mathrm{type}}(I_4)=B,
+\qquad\OPT(I_4)>B+c.
+\]
+In particular, the additive integrality gap of the unrestricted configuration LP is unbounded in the class of instances having at most four items per bin.
+\end{theorem}
+\begin{proof}
+Apply~\eqref{eq:source} with $h=357c$, and construct $I_4$ using Lemmas~\ref{lem:pair} and~\ref{lem:scalar}. The paired fractional witness gives a feasible individual-copy LP solution of value $B$. Each feasible new configuration has at most four copies, while the input has exactly $4B$ copies, so the cardinality dual assigns weight $1/4$ to each physical copy and yields a lower bound $B$. Hence $\LP_{\rm ind}(I_4)=B$. Aggregation by numerical size gives $\LP_{\rm type}(I_4)\le B$; conversely, applying the same cardinality argument to total type multiplicity $4B$ gives $\LP_{\rm type}(I_4)\ge B$.
+
+If $\OPT(I_4)\le B+c$, then Lemma~\ref{lem:decode} would give $\OPT(I_5)\le B+357c$, contrary to~\eqref{eq:source}. Thus $\OPT(I_4)>B+c$ for every prescribed $c$.
+\end{proof}
+
+\section{Scope, reproducibility and attribution}
+This result is a \emph{source-dependent corollary}: it uses the OpenAI 2026 instance inventory, the original soundness theorem and the original fractional selected/unselected templates. It is not an independent proof of the original five-item gap. The reverse decoding is one-directional and does not show that fixed-pair integer packings preserve the YES case of the original NP-hardness reduction; no four-item NP-hardness claim is made.
+
+The companion audit bundle includes exact-arithmetic role-score enumeration, a check of $357g$, group-demand arithmetic, local-state-table source parsing, test mutations, and SHA256 manifests. It does not independently instantiate the enormous trees, prove the imported source lemmas in Lean, or reproduce the OpenAI proof checker. The versioned primary-source references and Git blob SHAs are in the audit bundle. The preprint has not received human peer review; no exhaustive novelty search has established priority. The author does not claim to speak for or represent OpenAI.
+
+\begin{thebibliography}{9}
+\bibitem{OpenAI2026} OpenAI, \emph{Additive hardness and unbounded configuration gaps in bin packing}, research preprint, 24 September 2026.\newline\href{https://github.com/openai/math/tree/main/preprints/Additive-hardness-and-unbounded-configuration-gaps-in-bin-packing-September-24-2026}{OpenAI Math repository: preprint source and PDF}.\newline Primary source files checked: \texttt{instance.tex}, \texttt{completeness.tex}, \texttt{consequences.tex}, \texttt{introduction.tex}, and \texttt{main.tex}.
+\bibitem{HobergRothvoss2017} R. Hoberg and T. Rothvoss, \emph{A logarithmic additive integrality gap for bin packing}, Proceedings of SODA (2017), doi:\href{https://doi.org/10.1137/1.9781611974782.172}{10.1137/1.9781611974782.172}.
+\end{thebibliography}
+\end{document}
