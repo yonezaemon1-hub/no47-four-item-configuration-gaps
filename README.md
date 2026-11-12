@@ -45,3 +45,10 @@ The paired reduction imports the source's five-role inventory, original soundnes
 ## Rights
 
 Copyright (c) 2026 Ryutaro Yonezu. All rights reserved for the original manuscript and independent verification materials. Referenced third-party works retain their respective rights. No open-source license is granted by this release.
+
+## Author correspondence (metadata update, 2026-11-12)
+
+**Ryutaro Yonezu — Independent Researcher**  
+Research correspondence: **yonezaemon1+research@gmail.com**
+
+This contact-information addition does not revise any mathematical claims, frozen verification files, published preprint PDF, release assets, DOI, or existing SHA256 checksums.
